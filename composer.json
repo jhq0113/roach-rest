@@ -1,0 +1,27 @@
+{
+  "name":"jhq0113/roach-rest",
+  "description": "roach-rest",
+  "keywords": ["restful", "rest", "roach", "php", "roach-rest"],
+  "license": "MIT",
+  "homepage":"https://github.com/jhq0113/roach-rest",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jiang Haiqiang",
+      "email": "jhq0113@163.com",
+      "homepage": "https://github.com/jhq0113",
+      "role": "Owner"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "jhq0113/roach-orm": "^1.0",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "roach\\rest\\": "src/"
+    }
+  }
+}
