@@ -1,7 +1,7 @@
 <?php
 namespace roach\rest;
 
-use roach\Roach;
+use roach\rest\base\IModule;
 
 /**
  * Class Module
@@ -10,7 +10,13 @@ use roach\Roach;
  * @author   roach
  * @email    jhq0113@163.com
  */
-class Module extends Roach
+class Module extends IModule
 {
-
+    /**
+     * @var string
+     * @datetime 2020/7/18 8:02 PM
+     * @author roach
+     * @email jhq0113@163.com
+     */
+    public $id = 'index';
 }

@@ -1,7 +1,7 @@
 <?php
 namespace roach\rest;
 
-use roach\Roach;
+use roach\rest\base\IController;
 
 /**
  * Class Controller
@@ -10,7 +10,7 @@ use roach\Roach;
  * @author   roach
  * @email    jhq0113@163.com
  */
-class Controller extends Roach
+class Controller extends IController
 {
 
 }
