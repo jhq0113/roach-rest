@@ -77,14 +77,16 @@ class Application extends IApplication
          * @var IController $controller
          */
         $controller = Container::insure([
-            'class' => $controllerClass,
-            'id'    => $module->controllerId
+            'class'    => $controllerClass,
+            'moduleId' => $module->id,
+            'id'       => $module->controllerId,
         ]);
 
         $action = $module->actionId.'Action';
         if(!method_exists($controller, $action)) {
             throw new NotFoundException('action '.EHtml::encode($action).' not found');
         }
+        $controller->actionId = $module->actionId;
 
         $runAction = $controller->before();
         if(!$runAction) {

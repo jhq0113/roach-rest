@@ -20,6 +20,14 @@ class IController extends Roach
 {
     /**
      * @var string
+     * @datetime 2020/7/23 4:49 PM
+     * @author roach
+     * @email jhq0113@163.com
+     */
+    public $moduleId;
+
+    /**
+     * @var string
      * @datetime 2020/7/18 6:32 PM
      * @author roach
      * @email jhq0113@163.com

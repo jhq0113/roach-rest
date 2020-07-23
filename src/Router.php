@@ -24,12 +24,12 @@ class Router extends IRouter
         if(ECli::cli()) {
             $params = ECli::params();
             if(isset($params[0])) {
-                $this->route = ltrim($params[0], '/');
-                return;
+                $uri = '/'.ltrim($params[0], '/');
             }
+        }else {
+            $uri = $_SERVER['REQUEST_URI'];
         }
 
-        $uri = $_SERVER['REQUEST_URI'];
         $paramPosition = strpos($uri, '?');
         if($paramPosition === false) {
             $uri = substr($uri, 1);

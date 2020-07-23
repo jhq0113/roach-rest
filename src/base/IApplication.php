@@ -47,14 +47,6 @@ abstract class IApplication extends Roach
     public $namespace = 'rest';
 
     /**
-     * @var array
-     * @datetime 2020/7/14 4:45 下午
-     * @author   roach
-     * @email    jhq0113@163.com
-     */
-    public $config = [];
-
-    /**
      * @var IRouter
      * @datetime 2020/7/18 6:25 PM
      * @author roach
