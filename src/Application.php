@@ -88,6 +88,12 @@ class Application extends IApplication
         }
         $controller->actionId = $module->actionId;
 
+        if(isset($controller->actionMethodMap[ $controller->actionId ])) {
+            if(!in_array($_SERVER['REQUEST_METHOD'], $controller->actionMethodMap[ $controller->actionId ])) {
+                throw new NotFoundException('action '.EHtml::encode($action).' not found');
+            }
+        }
+
         $runAction = $controller->before();
         if(!$runAction) {
             return false;

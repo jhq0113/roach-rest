@@ -43,6 +43,14 @@ class IController extends Roach
     public $actionId;
 
     /**
+     * @var array
+     * @datetime 2020/7/23 6:28 PM
+     * @author roach
+     * @email jhq0113@163.com
+     */
+    public $actionMethodMap = [];
+
+    /**
      * @return bool
      * @datetime 2020/7/18 10:10 PM
      * @author roach

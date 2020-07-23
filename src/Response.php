@@ -1,6 +1,7 @@
 <?php
 namespace roach\rest;
 
+use roach\extensions\ECli;
 use roach\extensions\IExtension;
 
 /**
@@ -130,7 +131,9 @@ class Response extends IExtension
      */
     public static function response($httpCode, $body)
     {
-        header(self::HTTP_MAP[ $httpCode ]);
+        if(!ECli::cli()) {
+            header(self::HTTP_MAP[ $httpCode ]);
+        }
         echo $body;
     }
 }
