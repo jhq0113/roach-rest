@@ -54,6 +54,21 @@ abstract class IApplication extends Roach
      */
     public $router;
 
+    /**应用维护的时候使用，所有请求将有catchAll配置的function处理
+     * @var callable
+     * @example
+     * 在配置文件的app节点中增加如下配置
+     * 'app' => [
+     *      'catchAll'  => function() {
+     *          exit(json_encode(['code' => 500, 'msg' => '页面在维护，请晚点再来', 'data' => [] ], JSON_UNESCAPED_UNICODE));
+     *      }
+     * ],
+     * @datetime 2020/7/23 5:03 PM
+     * @author roach
+     * @email jhq0113@163.com
+     */
+    public $catchAll;
+
     /**
      * @throws \ReflectionException
      * @datetime 2020/7/18 10:37 PM
@@ -62,6 +77,11 @@ abstract class IApplication extends Roach
      */
     public function run()
     {
+        //捕捉所有请求
+        if(is_callable($this->catchAll)) {
+            return call_user_func($this->catchAll);
+        }
+
         $event = new EventObject([
             'sender' => $this,
             'data'   => $this->router
