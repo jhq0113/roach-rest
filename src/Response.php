@@ -1,7 +1,7 @@
 <?php
 namespace roach\rest;
 
-use roach\extensions\ECli;
+use roach\extensions\EHtml;
 use roach\extensions\IExtension;
 
 /**
@@ -90,38 +90,6 @@ class Response extends IExtension
     //网关超时
     const HTTP_GATEWAY_TIME_OUT       = 504;
 
-    const HTTP_MAP = [
-        self::HTTP_CONTINUE            => 'HTTP/1.1 100 Continue',
-        self::HTTP_SWITCHING_PROTOCOLS => "HTTP/1.1 101 Switching Protocols",
-        self::HTTP_OK                  => "HTTP/1.1 200 OK",
-        self::HTTP_CREATED             => "HTTP/1.1 201 Created",
-        self::HTTP_ACCEPTED            => "HTTP/1.1 202 Accepted",
-        self::HTTP_NON_AUTHORITATIVE_INFORMATION => "HTTP/1.1 203 Non-Authoritative Information",
-        self::HTTP_EMPTY               => "HTTP/1.1 204 No Content",
-        self::HTTP_RESET_CONTENT       => "HTTP/1.1 205 Reset Content",
-        self::HTTP_PARTIAL_CONTENT     => "HTTP/1.1 206 Partial Content",
-        self::HTTP_MULTIPLE_CHOICES    => "HTTP/1.1 300 Multiple Choices",
-        self::HTTP_MOVED_PERMANENTLY => "HTTP/1.1 301 Moved Permanently",
-        self::HTTP_FOUND => "HTTP/1.1 302 Found",
-        self::HTTP_SEE_OTHER => "HTTP/1.1 303 See Other",
-        self::HTTP_NOT_MODIFIED => "HTTP/1.1 304 Not Modified",
-        self::HTTP_BAD_REQUEST => "HTTP/1.1 400 Bad Request",
-        self::HTTP_UNAUTHORIZED => "HTTP/1.1 401 Unauthorized",
-        self::HTTP_PAYMENT_REQUIRED => "HTTP/1.1 402 Payment Required",
-        self::HTTP_FORBIDDEN => "HTTP/1.1 403 Forbidden",
-        self::HTTP_NOT_FOUND => "HTTP/1.1 404 Not Found",
-        self::HTTP_METHOD_NOT_ALLOWED => "HTTP/1.1 405 Method Not Allowed",
-        self::HTTP_NOT_ACCEPTABLE => "HTTP/1.1 406 Not Acceptable",
-        self::HTTP_REQUEST_ENTITY_TOO_LARGE => "HTTP/1.1 413 Request Entity Too Large",
-        self::HTTP_REQUEST_URI_TOO_LARGE => "HTTP/1.1 414 Request-URI Too Large",
-        self::HTTP_UNSUPPORTED_MEDIA_TYPE => "HTTP/1.1 415 Unsupported Media Type",
-        self::HTTP_REQUESTED_RANGE_NOT_SATISFIABLE => "HTTP/1.1 416 Requested range not satisfiable",
-        self::HTTP_INTERNAL_SERVER_ERROR => "HTTP/1.1 500 Internal Server Error",
-        self::HTTP_BAD_GATEWAY => "HTTP/1.1 502 Bad Gateway",
-        self::HTTP_SERVICE_UNAVAILABLE => "HTTP/1.1 503 Service Unavailable",
-        self::HTTP_GATEWAY_TIME_OUT => "HTTP/1.1 504 Gateway Time-out"
-    ];
-
     /**
      * @param int    $httpCode
      * @param string $body
@@ -129,11 +97,13 @@ class Response extends IExtension
      * @author roach
      * @email jhq0113@163.com
      */
-    public static function response($httpCode, $body)
+    public static function response($httpCode, $body = '')
     {
-        if(!ECli::cli()) {
-            header(self::HTTP_MAP[ $httpCode ]);
+        if(empty($body)) {
+            http_response_code($httpCode);
+        } else {
+            $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? EHtml::encode($_SERVER['SERVER_PROTOCOL']) : 'HTTP/1.1';
+            header($protocol.' '.(string)$httpCode.' '.$body);
         }
-        echo $body;
     }
 }
